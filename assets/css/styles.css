@@ -147,6 +147,12 @@ a { color: inherit; text-decoration: none; }
 }
 .skill-cell:nth-child(odd) { border-right: .3mm solid var(--blue-line); }
 .skill-cell:nth-last-child(-n+2) { border-bottom: 0; }
+.skill-cell:nth-child(6) { order: 1; }
+.skill-cell:nth-child(1) { order: 2; }
+.skill-cell:nth-child(2) { order: 3; }
+.skill-cell:nth-child(3) { order: 4; }
+.skill-cell:nth-child(4) { order: 5; }
+.skill-cell:nth-child(5) { order: 6; }
 .skill-cell h3,
 .certifications-grid h3 {
   margin: 0 0 .5mm;
