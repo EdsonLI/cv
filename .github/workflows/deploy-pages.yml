@@ -1,4 +1,4 @@
-name: Publish CV to gh-pages
+name: Publish CV to GitHub Pages
 
 on:
   push:
@@ -7,7 +7,9 @@ on:
   workflow_dispatch:
 
 permissions:
-  contents: write
+  contents: read
+  pages: write
+  id-token: write
 
 concurrency:
   group: cv-pages
@@ -17,10 +19,16 @@ jobs:
   publish:
     name: Build and publish site
     runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
 
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
+
+      - name: Configure GitHub Pages
+        uses: actions/configure-pages@v5
 
       - name: Prepare static site
         shell: bash
@@ -65,12 +73,11 @@ jobs:
           rm _site/print.html
           test -s _site/assets/files/Curriculo_Edson_Luis_Isele.pdf
 
-      - name: Publish generated site to gh-pages
-        uses: peaceiris/actions-gh-pages@v4
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@v3
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_branch: gh-pages
-          publish_dir: ./_site
-          force_orphan: true
-          enable_jekyll: false
-          commit_message: "deploy: publish CV from ${{ github.sha }}"
+          path: ./_site
+
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
