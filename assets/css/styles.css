@@ -541,3 +541,8 @@ a { color: inherit; text-decoration: none; }
   }
   .resume-page:last-child { break-after: auto; page-break-after: auto; }
 }
+
+
+.experience-subheading {
+  margin-top: 4mm !important;
+}
